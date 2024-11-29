@@ -10,6 +10,33 @@ const UserSchema = new mongoose.Schema({
 
 export const User1 = mongoose.model('User1', UserSchema);
 
+const JobSchema = new mongoose.Schema({
+  wishlist: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Job', 
+  }],
+  appliedJobs: [{
+    jobId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Job', 
+    },
+    appliedAt: {
+      type: Date,
+      default: Date.now, 
+    },
+    status: {
+      type: String,
+      enum: ['Pending', 'Interview', 'Rejected', 'Accepted'],
+      default: 'Pending',
+    },
+  }],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+export const Job1 = mongoose.model('Job1', JobSchema); 
+
 const AdminSchema = new mongoose.Schema({
     title: {
         type: String,
