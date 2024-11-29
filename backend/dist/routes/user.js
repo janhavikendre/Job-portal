@@ -98,4 +98,35 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 }));
+router.get('/update', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password, username, image } = req.body;
+    const user1 = yield db_1.User1.findOne({ email: email });
+    if (!user1) {
+        res.status(404).json({
+            message: "User not found",
+        });
+    }
+    else {
+        const updatedUser = yield db_1.User1.findOneAndUpdate({ email: email }, { password, username, image }, { new: true });
+        res.status(200).json({
+            message: "User updated successfully",
+            updatedUser,
+        });
+    }
+}));
+router.delete('/delete', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.body;
+    const user1 = yield db_1.User1.findOne({ email: email });
+    if (!user1) {
+        res.status(404).json({
+            message: "User not found",
+        });
+    }
+    else {
+        yield db_1.User1.findByIdAndDelete(user1._id);
+        res.status(200).json({
+            message: "User deleted successfully",
+        });
+    }
+}));
 exports.default = router;

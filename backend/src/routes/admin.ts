@@ -11,13 +11,13 @@ dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-key';
 
-const adminRouter = Router();
+const adminRouter1 = Router();
 
-const { adminJobRouter } = require('./adminJob');
+import  adminRouter  from './adminJob';
 
-adminRouter.use('/job', adminJobRouter);
+adminRouter1.use('/job', adminRouter);
 
-adminRouter.post('/signup', async (req: Request, res: Response): Promise<void> => {
+adminRouter1.post('/signup', async (req: Request, res: Response): Promise<void> => {
     try {
         const requiredbody = z.object({
             name: z.string().min(1),
@@ -63,7 +63,7 @@ adminRouter.post('/signup', async (req: Request, res: Response): Promise<void> =
 })
 
 
-adminRouter.post('/login', async (req: Request, res: Response): Promise<void> => {
+adminRouter1.post('/login', async (req: Request, res: Response): Promise<void> => {
     try {
         const requiredbody = z.object({
             email: z.string().email(),
@@ -79,7 +79,7 @@ adminRouter.post('/login', async (req: Request, res: Response): Promise<void> =>
             });
         }
            const { email, password } = req.body;
-           const admin = await Admin1.findOne({ email: email, password: password });
+           const admin = await Admin1.findOne({ email: email });
 
            if (!admin) {
             res.status(401).json({
@@ -106,7 +106,7 @@ adminRouter.post('/login', async (req: Request, res: Response): Promise<void> =>
     }
 })
 
-adminRouter.put('/update', async function(req: Request, res: Response): Promise<void> {
+adminRouter1.put('/update', async function(req: Request, res: Response): Promise<void> {
         try {
            const { name, email, password, image } = req.body;
            const admin = await Admin1.findOne({ email: email });
@@ -129,7 +129,7 @@ adminRouter.put('/update', async function(req: Request, res: Response): Promise<
     }
 })
 
-adminRouter.delete('/delete', async function(req: Request, res: Response): Promise<void> {
+adminRouter1.delete('/delete', async function(req: Request, res: Response): Promise<void> {
     try {
         const { email } = req.body;
         const admin = await Admin1.findOne({ email: email });
@@ -151,4 +151,4 @@ adminRouter.delete('/delete', async function(req: Request, res: Response): Promi
     }
 })
 
-export default adminRouter;
+export default adminRouter1;
