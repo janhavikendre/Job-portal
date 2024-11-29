@@ -25,7 +25,7 @@ router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function*
             email: zod_1.default.string().email(),
             password: zod_1.default.string().min(6).max(20),
             username: zod_1.default.string().min(3).max(20),
-            image: zod_1.default.string().url().optional()
+            image: zod_1.default.string().optional()
         });
         const SafeParse = user.safeParse(req.body);
         if (!SafeParse.success) {

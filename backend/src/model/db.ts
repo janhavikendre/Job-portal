@@ -13,12 +13,12 @@ export const User1 = mongoose.model('User1', UserSchema);
 const JobSchema = new mongoose.Schema({
   wishlist: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Job', 
+    ref: 'Admin', 
   }],
   appliedJobs: [{
     jobId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Job', 
+      ref: 'Admin', 
     },
     appliedAt: {
       type: Date,

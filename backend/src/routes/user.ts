@@ -13,7 +13,7 @@ router.post('/signup', async (req: Request, res: Response) => {
             email: Zod.string().email(),
             password: Zod.string().min(6).max(20),
             username: Zod.string().min(3).max(20),
-            image: Zod.string().url().optional()
+            image: Zod.string().optional()
 
     });
 

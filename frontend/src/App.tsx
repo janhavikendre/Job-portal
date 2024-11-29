@@ -1,20 +1,29 @@
-import Header from "./components/Headers"
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import './App.css'
+import Headers from './components/Headers'
+import Home from './components/Home'
+import AdminSignup from './components/AdminSignup'
+import AdminLogin from './components/AdminLogin'
+import UserSignup from './components/UserSignup'
+import UserLogin from './components/UserLogin'
 
 function App() {
 
   return (
-    <>
-        <div className="pt-[4.75rem] lg:pt-[5.25rem] overflow-hidden">
-        <BrowserRouter>
-
-          <Header />
-
-        </BrowserRouter>
-      </div>
-    </>
+    <div>
+    <BrowserRouter>
+    <Headers />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/admin-signup" element={<AdminSignup />} />
+      <Route path="/admin-login" element={<AdminLogin />} />
+      <Route path="/user-signup" element={<UserSignup />} />
+      <Route path="/user-login" element={<UserLogin />} />
+    </Routes>
+  
+    </BrowserRouter>
+      
+    </div>
   )
 }
 

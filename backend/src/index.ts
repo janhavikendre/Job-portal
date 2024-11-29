@@ -8,7 +8,7 @@ import cors from "cors";
 const app = express();
 import adminRouter1 from "./routes/admin";
 
-
+import userRouter1 from "./routes/userJob"
 
 app.use(cors());
 
@@ -17,6 +17,7 @@ app.use(express.json());
 app.use('/user', router);
 // app.use('/admin', adminRouter);
 app.use('/admin', adminRouter1);
+app.use('/job', userRouter1);
 
 
 const Mongo = process.env.MONGO_URL;

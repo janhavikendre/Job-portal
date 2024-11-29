@@ -15,12 +15,12 @@ exports.User1 = mongoose_1.default.model('User1', UserSchema);
 const JobSchema = new mongoose_1.default.Schema({
     wishlist: [{
             type: mongoose_1.default.Schema.Types.ObjectId,
-            ref: 'Job',
+            ref: 'Admin',
         }],
     appliedJobs: [{
             jobId: {
                 type: mongoose_1.default.Schema.Types.ObjectId,
-                ref: 'Job',
+                ref: 'Admin',
             },
             appliedAt: {
                 type: Date,

@@ -1,7 +1,5 @@
 import { Router } from 'express';
 import type { Request, Response } from 'express';
-import { Admin } from '../model/db';
-import { adminMiddleware } from '../middlewares/adminMiddleware';
 import { z } from 'zod';
 import bcrypt from 'bcrypt';
 import { Admin1 } from '../model/db';
@@ -44,15 +42,16 @@ adminRouter1.post('/signup', async (req: Request, res: Response): Promise<void> 
             image: image,
         });
 
-        if (admin) {
-            res.status(201).json({
-                message: "Admin created successfully",
-                admin,
-                _id: admin._id,
+        const token = await jwt.sign({
+            id: admin._id,
+        }, JWT_SECRET, { expiresIn: '1h' });
 
-            });
-        }
-
+        res.status(201).json({
+            message: "Admin created successfully",
+            admin,
+            _id: admin._id,
+            token: token,
+        });
 
     } catch (error) {
         res.status(500).json({

@@ -46,13 +46,15 @@ adminRouter1.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, fun
             password: hashedPassword,
             image: image,
         });
-        if (admin) {
-            res.status(201).json({
-                message: "Admin created successfully",
-                admin,
-                _id: admin._id,
-            });
-        }
+        const token = yield jsonwebtoken_1.default.sign({
+            id: admin._id,
+        }, JWT_SECRET, { expiresIn: '1h' });
+        res.status(201).json({
+            message: "Admin created successfully",
+            admin,
+            _id: admin._id,
+            token: token,
+        });
     }
     catch (error) {
         res.status(500).json({

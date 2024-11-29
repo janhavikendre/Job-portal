@@ -20,11 +20,13 @@ const user_1 = __importDefault(require("./routes/user"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 const admin_1 = __importDefault(require("./routes/admin"));
+const userJob_1 = __importDefault(require("./routes/userJob"));
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use('/user', user_1.default);
 // app.use('/admin', adminRouter);
 app.use('/admin', admin_1.default);
+app.use('/job', userJob_1.default);
 const Mongo = process.env.MONGO_URL;
 function main() {
     return __awaiter(this, void 0, void 0, function* () {

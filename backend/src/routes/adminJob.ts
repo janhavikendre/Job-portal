@@ -25,7 +25,7 @@ adminRouter.post('/create', adminMiddleware,  async (req: CustomRequest, res: Re
 
       if (admin) {
           res.status(201).json({
-              message: "blog created successfully",
+              message: "Job created successfully",
               admin,
               _id : admin._id,
           });
