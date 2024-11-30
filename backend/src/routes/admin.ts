@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-key';
+const JWT_SECRET_ADMIN = process.env.JWT_SECRET_ADMIN || 'fallback-secret-key';
 
 const adminRouter1 = Router();
 
@@ -31,7 +31,8 @@ adminRouter1.post('/signup', async (req: Request, res: Response): Promise<void> 
                 message: "Invalid request body",
                 error: parsedbody.error,
             });
-        } 
+        }
+
         const { name, email, password, image } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -44,9 +45,9 @@ adminRouter1.post('/signup', async (req: Request, res: Response): Promise<void> 
 
         const token = await jwt.sign({
             id: admin._id,
-        }, JWT_SECRET, { expiresIn: '1h' });
+        }, JWT_SECRET_ADMIN, { expiresIn: '1h' });
 
-        res.status(201).json({
+         res.status(201).json({
             message: "Admin created successfully",
             admin,
             _id: admin._id,
@@ -54,12 +55,12 @@ adminRouter1.post('/signup', async (req: Request, res: Response): Promise<void> 
         });
 
     } catch (error) {
-        res.status(500).json({
+         res.status(500).json({
             message: "Internal server error",
             error: error,
         });
     }
-})
+});
 
 
 adminRouter1.post('/login', async (req: Request, res: Response): Promise<void> => {
@@ -72,38 +73,41 @@ adminRouter1.post('/login', async (req: Request, res: Response): Promise<void> =
         const parsedbody = await requiredbody.safeParse(req.body);
 
         if (!parsedbody.success) {
-            res.status(400).json({
+             res.status(400).json({
                 message: "Invalid request body",
                 error: parsedbody.error,
             });
         }
-           const { email, password } = req.body;
-           const admin = await Admin1.findOne({ email: email });
 
-           if (!admin) {
-            res.status(401).json({
+        const { email, password } = req.body;
+        const admin = await Admin1.findOne({ email: email });
+
+        if (!admin) {
+             res.status(401).json({
                 message: "Invalid email or password",
             });
-           } else {
+            return;
+        }
 
-            const token = await jwt.sign({
-                id: admin._id,
-            }, JWT_SECRET, { expiresIn: '1h' });
+        const token = await jwt.sign({
+            id: admin._id,
+        }, JWT_SECRET_ADMIN, { expiresIn: '1h' });
 
-            res.status(200).json({
-                message: "Login successful",
-                token: token,
-                admin,
-                _id: admin._id,
-            });
-           }
+         res.status(200).json({
+            message: "Login successful",
+            token: token,
+            admin,
+            _id: admin._id,
+        });
+
     } catch (error) {
-        res.status(500).json({
+         res.status(500).json({
             message: "Internal server error",
             error: error,
         });
     }
-})
+});
+
 
 adminRouter1.put('/update', async function(req: Request, res: Response): Promise<void> {
         try {

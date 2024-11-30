@@ -1,5 +1,6 @@
 import { useState } from "react";
-
+import { adminAPI } from "../services/adminApi";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AdminSignup() {
   const [formData, setFormData] = useState<{
@@ -13,9 +14,10 @@ export default function AdminSignup() {
     password: "",
     image: null,
   });
-  
 
-  const handleChange = (e: { target: { name: any; value: any; }; }) => {
+  const navigate = useNavigate();
+
+  const handleChange = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -33,10 +35,28 @@ export default function AdminSignup() {
     }
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    // Handle form submission (e.g., send data to the server)
-    console.log("Form submitted:", formData);
+    try {
+      const response = await adminAPI.signup({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        image: formData.image,
+      });
+
+      // Assuming the response contains a token in response.data.token
+      const token = response.data.token;
+      if (token) {
+        localStorage.setItem("authToken", token); // Store the token in localStorage
+        console.log("Signup success:", response.data);
+        navigate("/AdminJob");
+      } else {
+        console.error("No token received from the server.");
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+    }
   };
 
   return (
@@ -44,7 +64,6 @@ export default function AdminSignup() {
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-semibold text-center mb-6">Admin Signup</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name */}
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
               Name
@@ -60,7 +79,6 @@ export default function AdminSignup() {
             />
           </div>
 
-          {/* Email */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Email
@@ -76,7 +94,6 @@ export default function AdminSignup() {
             />
           </div>
 
-          {/* Password */}
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
@@ -92,7 +109,6 @@ export default function AdminSignup() {
             />
           </div>
 
-          {/* Image Upload */}
           <div>
             <label htmlFor="image" className="block text-sm font-medium text-gray-700">
               Profile Image
@@ -111,7 +127,6 @@ export default function AdminSignup() {
             )}
           </div>
 
-          {/* Submit Button */}
           <div>
             <button
               type="submit"
@@ -119,6 +134,7 @@ export default function AdminSignup() {
             >
               Signup
             </button>
+            <Link to="/admin-login">Already have an account? Login here</Link>
           </div>
         </form>
       </div>

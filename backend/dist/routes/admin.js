@@ -19,7 +19,7 @@ const db_1 = require("../model/db");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-key';
+const JWT_SECRET_ADMIN = process.env.JWT_SECRET_ADMIN || 'fallback-secret-key';
 const adminRouter1 = (0, express_1.Router)();
 const adminJob_1 = __importDefault(require("./adminJob"));
 adminRouter1.use('/job', adminJob_1.default);
@@ -48,7 +48,7 @@ adminRouter1.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, fun
         });
         const token = yield jsonwebtoken_1.default.sign({
             id: admin._id,
-        }, JWT_SECRET, { expiresIn: '1h' });
+        }, JWT_SECRET_ADMIN, { expiresIn: '1h' });
         res.status(201).json({
             message: "Admin created successfully",
             admin,
@@ -82,18 +82,17 @@ adminRouter1.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, func
             res.status(401).json({
                 message: "Invalid email or password",
             });
+            return;
         }
-        else {
-            const token = yield jsonwebtoken_1.default.sign({
-                id: admin._id,
-            }, JWT_SECRET, { expiresIn: '1h' });
-            res.status(200).json({
-                message: "Login successful",
-                token: token,
-                admin,
-                _id: admin._id,
-            });
-        }
+        const token = yield jsonwebtoken_1.default.sign({
+            id: admin._id,
+        }, JWT_SECRET_ADMIN, { expiresIn: '1h' });
+        res.status(200).json({
+            message: "Login successful",
+            token: token,
+            admin,
+            _id: admin._id,
+        });
     }
     catch (error) {
         res.status(500).json({

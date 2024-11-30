@@ -1,5 +1,9 @@
+import Header from "./Headers"
+
 export default function Home() {
     return (
+        <>
+        <Header />
         <div className="h-screen flex items-center justify-center px-2 sm:px-4">
             <div className="relative w-full max-w-5xl">
                 <img 
@@ -26,5 +30,7 @@ export default function Home() {
                 </div>
             </div>
         </div>
+        </>
+
     )
 }

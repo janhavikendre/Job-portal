@@ -13,12 +13,12 @@ export const User1 = mongoose.model('User1', UserSchema);
 const JobSchema = new mongoose.Schema({
   wishlist: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Admin', 
+    ref: 'Job', 
   }],
   appliedJobs: [{
     jobId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Admin', 
+      ref: 'Job', 
     },
     appliedAt: {
       type: Date,
@@ -89,4 +89,4 @@ const admin1Schema = new mongoose.Schema({
     image: { type: String },
 })
 
-export const Admin1 = mongoose.model('Admin1', admin1Schema);   
+export const Admin1 = mongoose.model('Admin1', admin1Schema);

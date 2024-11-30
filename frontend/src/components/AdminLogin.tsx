@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { adminAPI } from '../services/adminApi';
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AdminLogin() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e: { target: { name: any; value: any; }; }) => {
     const { name, value } = e.target;
@@ -14,11 +18,22 @@ export default function AdminLogin() {
     });
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    // Handle form submission (e.g., send data to the server for login)
-    console.log("Admin Login Form submitted:", formData);
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
+      const result = await adminAPI.login(formData);
+      console.log("Login successful:", result);
+      navigate("/AdminJob");
+    } catch (error: any) {
+      if (error.response) {
+        console.error("Login error:", error.response.data);
+        // Optionally display error message to the user
+      } else {
+        console.error("Login error:", error.message);
+      }
+    }
   };
+  
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 py-6">
@@ -61,18 +76,13 @@ export default function AdminLogin() {
           <div>
             <button
               type="submit"
-              className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mb-3"
             >
               Login
             </button>
           </div>
 
-          {/* Forgot Password Link */}
-          <div className="text-center mt-4">
-            <a href="#" className="text-blue-600 hover:text-blue-700 text-sm">
-              Forgot Password?
-            </a>
-          </div>
+          <Link className="" to="/admin-signup">Don't have an account? Signup here</Link>
         </form>
       </div>
     </div>
