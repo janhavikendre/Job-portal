@@ -31,12 +31,13 @@ adminRouter1.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, fun
             password: zod_1.z.string().min(8),
             image: zod_1.z.string().optional(),
         });
-        const parsedbody = yield requiredbody.safeParse(req.body);
+        const parsedbody = requiredbody.safeParse(req.body);
         if (!parsedbody.success) {
             res.status(400).json({
                 message: "Invalid request body",
                 error: parsedbody.error,
             });
+            return;
         }
         const { name, email, password, image } = req.body;
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
@@ -55,6 +56,7 @@ adminRouter1.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, fun
             _id: admin._id,
             token: token,
         });
+        return;
     }
     catch (error) {
         res.status(500).json({

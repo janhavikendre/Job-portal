@@ -17,7 +17,11 @@ export const adminAPI = {
   },
 
   createJob: (data: { title: string; description: string; company: string; location: string; salary: string; jobType: string }) => {
-    return axios.post(`${API_URL}/job/create`, data);
+    return axios.post(`${API_URL}/job/create`, data,{
+      headers: {
+        'token': `${localStorage.getItem('authToken')}`
+      }
+    });
 
 
   },

@@ -24,13 +24,14 @@ adminRouter1.post('/signup', async (req: Request, res: Response): Promise<void> 
             image: z.string().optional(),
         });
 
-        const parsedbody = await requiredbody.safeParse(req.body);
+        const parsedbody =  requiredbody.safeParse(req.body);
 
         if (!parsedbody.success) {
              res.status(400).json({
                 message: "Invalid request body",
                 error: parsedbody.error,
             });
+            return
         }
 
         const { name, email, password, image } = req.body;
@@ -53,6 +54,7 @@ adminRouter1.post('/signup', async (req: Request, res: Response): Promise<void> 
             _id: admin._id,
             token: token,
         });
+        return;
 
     } catch (error) {
          res.status(500).json({

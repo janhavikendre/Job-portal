@@ -6,7 +6,7 @@ const cors = require('cors');
 
 
 dotenv.config();
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET_ADMIN;
 
 interface CustomRequest extends Request {
     userId?: string;
@@ -34,7 +34,8 @@ export function adminMiddleware(req: CustomRequest, res: Response, next: NextFun
             });
         }
     } catch (e) {
-
+        console.log(e);
+        
         res.status(403).json({
             message: "Invalid token"
         })
