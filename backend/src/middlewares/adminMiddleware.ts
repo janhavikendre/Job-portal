@@ -6,7 +6,7 @@ const cors = require('cors');
 
 
 dotenv.config();
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET_ADMIN;
 
 interface CustomRequest extends Request {
     userId?: string;

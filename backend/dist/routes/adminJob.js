@@ -38,7 +38,7 @@ adminRouter.post('/create', adminMiddleware_1.adminMiddleware, (req, res) => __a
     catch (error) {
         res.status(500).json({
             message: "Something went wrong",
-            error,
+            error: error.message
         });
     }
 }));

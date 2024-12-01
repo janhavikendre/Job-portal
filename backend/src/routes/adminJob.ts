@@ -9,11 +9,11 @@ interface CustomRequest extends Request {
     userId?: string;
 }
 
-adminRouter.post('/create', adminMiddleware,  async (req: CustomRequest, res: Response) => {
- try {
-      const userId = req.userId ?? '';
-      const { title, description, company, location, salary, jobType } = req.body;
-      const admin = await Admin.create({
+adminRouter.post('/create', adminMiddleware, async (req: CustomRequest, res: Response) => {
+    try {
+        const userId = req.userId ?? '';
+        const { title, description, company, location, salary, jobType } = req.body;
+        const admin = await Admin.create({
         title,
         description,
         company,
@@ -27,14 +27,14 @@ adminRouter.post('/create', adminMiddleware,  async (req: CustomRequest, res: Re
           res.status(201).json({
               message: "Job created successfully",
               admin,
-              _id : admin._id,
+              _id: (admin as any)._id,
           });
       }
  }
     catch (error) {
         res.status(500).json({
             message: "Something went wrong",
-            error,
+            error: (error as Error).message
         });
     }
 

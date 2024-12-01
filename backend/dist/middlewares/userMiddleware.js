@@ -7,7 +7,7 @@ exports.userMiddleware = userMiddleware;
 const dotenv_1 = __importDefault(require("dotenv"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 dotenv_1.default.config();
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_USER_SECRET;
 function userMiddleware(req, res, next) {
     const token = req.headers.token || "";
     if (!token) {

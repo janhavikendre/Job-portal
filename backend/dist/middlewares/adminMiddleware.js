@@ -8,7 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const cors = require('cors');
 dotenv_1.default.config();
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET_ADMIN;
 function adminMiddleware(req, res, next) {
     const token = req.headers.token || "";
     if (!token) {

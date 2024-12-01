@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 
 dotenv.config();                        
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_USER_SECRET;
 
 interface CustomRequest extends Request {
     userId?: string;
