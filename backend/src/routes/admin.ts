@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const JWT_SECRET_ADMIN = process.env.JWT_SECRET_ADMIN || 'fallback-secret-key';
+const JWT_SECRET = process.env.JWT_SECRET_ADMIN || 'fallback-secret-key';
 
 const adminRouter1 = Router();
 
@@ -45,7 +45,7 @@ adminRouter1.post('/signup', async (req: Request, res: Response): Promise<void> 
 
         const token = await jwt.sign({
             id: admin._id,
-        }, JWT_SECRET_ADMIN, { expiresIn: '1h' });
+        }, JWT_SECRET, { expiresIn: '1h' });
 
          res.status(201).json({
             message: "Admin created successfully",
@@ -91,7 +91,7 @@ adminRouter1.post('/login', async (req: Request, res: Response): Promise<void> =
 
         const token = await jwt.sign({
             id: admin._id,
-        }, JWT_SECRET_ADMIN, { expiresIn: '1h' });
+        }, JWT_SECRET, { expiresIn: '1h' });
 
          res.status(200).json({
             message: "Login successful",

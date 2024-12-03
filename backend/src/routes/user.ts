@@ -38,7 +38,7 @@ router.post('/signup', async (req: Request, res: Response) => {
 
     const token = jwt.sign(
         { id: user1._id },
-        process.env.JWT_SECRET_USER!,
+        process.env.JWT_SECRET!, // Add non-null assertion since we know JWT_SECRET is defined
         { expiresIn: '1d' }
     );
 
@@ -85,7 +85,7 @@ router.post('/login', async (req: Request, res: Response) => {
         if (user1) {
             const token = jwt.sign({
                 id: user1._id,
-            }, process.env.JWT_SECRET_USER!,
+            }, process.env.JWT_SECRET!,
              { expiresIn: '1d' });
 
             res.status(200).json({

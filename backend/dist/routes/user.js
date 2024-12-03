@@ -42,7 +42,8 @@ router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function*
             username,
             image,
         });
-        const token = jsonwebtoken_1.default.sign({ id: user1._id }, process.env.JWT_SECRET_USER, { expiresIn: '1d' });
+        const token = jsonwebtoken_1.default.sign({ id: user1._id }, process.env.JWT_SECRET, // Add non-null assertion since we know JWT_SECRET is defined
+        { expiresIn: '1d' });
         res.status(201).json({
             message: "User created successfully",
             token,
@@ -78,7 +79,7 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         if (user1) {
             const token = jsonwebtoken_1.default.sign({
                 id: user1._id,
-            }, process.env.JWT_SECRET_USER, { expiresIn: '1d' });
+            }, process.env.JWT_SECRET, { expiresIn: '1d' });
             res.status(200).json({
                 message: "User logged in successfully",
                 token,

@@ -17,17 +17,34 @@ export const adminAPI = {
   },
 
   createJob: (data: { title: string; description: string; company: string; location: string; salary: string; jobType: string }) => {
-    const token = localStorage.getItem('adminToken');  // Retrieve the token from localStorage
-
     return axios.post(`${API_URL}/job/create`, data, {
       headers: {
-        token: token,
+        'token': `${localStorage.getItem('authToken')}`
       }
     });
-
-
-
+  },
+  
+  getJobs: ( ) => {
+    return axios.get(`${API_URL}/job/all`, {
+      headers: {
+        'token': `${localStorage.getItem('authToken')}`
+      }
+    });
   },
 
-  
+  deleteJob: (id: string) => {
+    return axios.delete(`${API_URL}/job/delete/${id}`, {
+      headers: {
+        'token': `${localStorage.getItem('authToken')}`
+      }
+    });
+  },
+
+  updateJob: (id: string, data: { title: string; description: string; company: string; location: string; salary: string; jobType: string }) => {
+    return axios.put(`${API_URL}/job/update/${id}`, data, {
+      headers: {
+        'token': `${localStorage.getItem('authToken')}`
+      }
+    });
+  }
 };

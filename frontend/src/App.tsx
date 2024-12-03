@@ -6,6 +6,7 @@ import AdminLogin from './components/AdminLogin'
 import UserSignup from './components/UserSignup'
 import UserLogin from './components/UserLogin'
 import AdminJob from './Job/AdminJob'
+import AdminJobListings from './Job/AdminJobListings'
 
 function App() {
 
@@ -19,7 +20,9 @@ function App() {
       <Route path='/user-signup' element={<UserSignup />} />
       <Route path='/user-login' element={<UserLogin />} />
       <Route path="/AdminJob" element={ <AdminJob /> } />
-     
+      <Route path="/AdminJobListings" element={ <AdminJobListings /> } />
+      
+
       
     </Routes>
   

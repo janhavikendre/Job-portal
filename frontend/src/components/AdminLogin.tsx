@@ -20,10 +20,14 @@ export default function AdminLogin() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
     try {
       const result = await adminAPI.login(formData);
+      localStorage.setItem("authToken",result.data.token);
       console.log("Login successful:", result);
       navigate("/AdminJob");
+
+
     } catch (error: any) {
       if (error.response) {
         console.error("Login error:", error.response.data);

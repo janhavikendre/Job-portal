@@ -13,8 +13,9 @@ function AdminJob() {
     salary: "",
     jobType: "",
   });
-
+;
   const navigate = useNavigate();
+  
 
   const handleChange = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
@@ -49,7 +50,11 @@ function AdminJob() {
   return (
     
       <div className='relative h-screen w-full bg-white'>
+        <div>
         <Sidebar />
+        </div>
+     
+        
         <div className='absolute flex flex-col justify-center items-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '>
         <form onSubmit={handleSubmit} className="space-y-4">
 <div>
@@ -142,7 +147,7 @@ function AdminJob() {
   />
 </div>
 <div>
-  <button
+  <button onClick={() => alert("Job created successfully")}
     type="submit"
     className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
   >
@@ -151,7 +156,8 @@ function AdminJob() {
 </div>
 </form>
         </div>
-      </div>
+        </div>
+      
   )
 }
 

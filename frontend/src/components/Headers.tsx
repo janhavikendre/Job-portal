@@ -2,31 +2,29 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 export default function Header() {
-  const [showAdminOptions, setShowAdminOptions] = useState(false); // Toggle for Admin options
-  const [showUserOptions, setShowUserOptions] = useState(false);   // Toggle for User options
-  const [showMobileMenu, setShowMobileMenu] = useState(false);     // Toggle for mobile menu
-  const adminOptionsRef = useRef<HTMLDivElement>(null); // Ref for Admin dropdown
-  const userOptionsRef = useRef<HTMLDivElement>(null);  // Ref for User dropdown
-  const mobileMenuRef = useRef<HTMLDivElement>(null);  // Ref for mobile menu
+  const [showAdminOptions, setShowAdminOptions] = useState(false); 
+  const [showUserOptions, setShowUserOptions] = useState(false);   
+  const [showMobileMenu, setShowMobileMenu] = useState(false);    
+  const adminOptionsRef = useRef<HTMLDivElement>(null); 
+  const userOptionsRef = useRef<HTMLDivElement>(null); 
+  const mobileMenuRef = useRef<HTMLDivElement>(null);  
 
-  // Function to toggle the admin button
+ 
   const toggleAdminOptions = () => {
     setShowAdminOptions((prevState) => !prevState);
-    setShowUserOptions(false); // Hide user options if admin is clicked
+    setShowUserOptions(false);
   };
 
-  // Function to toggle the user button
+  
   const toggleUserOptions = () => {
     setShowUserOptions((prevState) => !prevState);
-    setShowAdminOptions(false); // Hide admin options if user is clicked
+    setShowAdminOptions(false); 
   };
 
-  // Function to toggle the mobile menu visibility
   const toggleMobileMenu = () => {
     setShowMobileMenu((prevState) => !prevState);
   };
 
-  // Function to close the dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -36,14 +34,14 @@ export default function Header() {
       ) {
         setShowAdminOptions(false);
         setShowUserOptions(false);
-        setShowMobileMenu(false); // Close mobile menu if clicked outside
+        setShowMobileMenu(false); 
       }
     };
 
-    // Adding the event listener to the document when the component mounts
+    
     document.addEventListener("click", handleClickOutside);
 
-    // Cleanup the event listener when the component unmounts
+   
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
@@ -51,7 +49,7 @@ export default function Header() {
 
   return (
     <div className="flex justify-between items-center p-5 bg-white shadow-md fixed top-0 left-0 right-0 z-10">
-      {/* Logo Section */}
+      
       <div className="flex items-center space-x-3">
         <img
           src="https://static.vecteezy.com/system/resources/thumbnails/021/666/174/small_2x/find-job-silhouette-icon-job-recruitment-icon-set-illustration-template-for-web-and-mobile-vector.jpg"
@@ -61,9 +59,9 @@ export default function Header() {
         <h1 className="text-xl sm:text-2xl lg:text-4xl font-bold">JobSphere</h1>
       </div>
 
-      {/* Admin and User Toggle Buttons for Desktop */}
+    
       <div className="hidden sm:flex space-x-8 text-lg">
-        {/* Admin Button */}
+        
         <button
           onClick={toggleAdminOptions}
           className="cursor-pointer text-gray-700 bg-slate-100 p-3 rounded-xl"
@@ -71,7 +69,7 @@ export default function Header() {
           Admin
         </button>
 
-        {/* User Button */}
+        
         <button
           onClick={toggleUserOptions}
           className="cursor-pointer text-slate-700 bg-slate-100 p-3 rounded-xl"
@@ -80,7 +78,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Menu Button */}
+      
       <div className="sm:hidden">
         <button onClick={toggleMobileMenu} className="text-gray-500">
           <svg
@@ -100,13 +98,13 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+     
       {showMobileMenu && (
         <div
           ref={mobileMenuRef}
           className="absolute top-16 right-0 bg-white shadow-lg p-3 rounded-xl z-20 w-40"
         >
-          {/* Admin Options */}
+          
           <button
             onClick={toggleAdminOptions}
             className="block px-4 py-2 text-gray-700 w-full text-left"
@@ -114,7 +112,7 @@ export default function Header() {
             Admin
           </button>
 
-          {/* User Options */}
+          
           <button
             onClick={toggleUserOptions}
             className="block px-4 py-2 text-gray-700 w-full text-left"
@@ -124,7 +122,7 @@ export default function Header() {
         </div>
       )}
 
-      {/* Admin Options */}
+      
       {showAdminOptions && (
         <div
           ref={adminOptionsRef}
@@ -139,7 +137,7 @@ export default function Header() {
         </div>
       )}
 
-      {/* User Options */}
+      
       {showUserOptions && (
         <div
           ref={userOptionsRef}

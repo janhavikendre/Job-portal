@@ -104,11 +104,13 @@ adminRouter.get('/all', adminMiddleware, async (req: CustomRequest, res: Respons
             message: "Admins fetched successfully",
             admins: allAdmins
         });
+        return
     } catch (error) {
         res.status(500).json({
             message: "Something went wrong",
             error,
         });
+        return
     }
 })
 
